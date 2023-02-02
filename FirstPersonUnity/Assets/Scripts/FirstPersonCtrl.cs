@@ -17,8 +17,21 @@ public class FirstPersonCtrl : MonoBehaviour
 
     // 이동 속도
     private float moveSpeed = 10.0f;
-    // 마우스 감지 센스티브
-    private float mouseSensitivity = 360.0f;
+    // 마우스 감지 X 센스티브
+    private float xSensitivity = 100.0f;
+    // 마우스 감지 Y 센스티브
+    private float ySensitivity = 100.0f;
+
+    public float yMinLimit = -45.0f;
+    public float yMaxLimit = 60.0f;
+    public float xMinLimit = -360.0f;
+    public float xMaxLimit = 360.0f;
+
+    private float yRot = 0.0f;
+    private float xRot = 0.0f;
+
+    public Transform myCamera;
+
     // 점프 높이
     private float jumpPower = 5.0f;
 
@@ -55,8 +68,15 @@ public class FirstPersonCtrl : MonoBehaviour
 
     private void MouseRotation()
     {
-        r = Input.GetAxis("Mouse X"); // 마우스를 좌우로 움직인다면
-        transform.Rotate(Vector3.up * r * Time.deltaTime * mouseSensitivity);
+        //r = Input.GetAxis("Mouse X"); // 마우스를 좌우로 움직인다면
+        //transform.Rotate(Vector3.up * r * Time.deltaTime * mouseSensitivity);
+
+        xRot += Input.GetAxis("Mouse X") * xSensitivity * Time.deltaTime;
+        yRot += Input.GetAxis("Mouse Y") * ySensitivity * Time.deltaTime;
+        xRot = Mathf.Clamp(xRot, xMinLimit, xMaxLimit);
+        yRot = Mathf.Clamp(yRot, yMinLimit, yMaxLimit);
+
+        myCamera.localEulerAngles = new Vector3(-yRot, xRot, 0.0f);
     }
 
     private void KeyboardMove()

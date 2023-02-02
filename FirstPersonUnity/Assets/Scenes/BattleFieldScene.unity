@@ -915,9 +915,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba7f40cdb7d87f45802597386e3e60a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
-  mouseSensitivity: 100
-  r: 0
+  yMinLimit: -45
+  yMaxLimit: 165
+  xMinLimit: 360
+  xMaxLimit: -360
+  myCamera: {fileID: 963194228}
   rbody: {fileID: 816708570}
 --- !u!136 &816708566
 CapsuleCollider:
