@@ -23,6 +23,8 @@ public class ZombieCtrl : MonoBehaviour
 
     public float TraceDist = 20.0f;     // 추적 범위
     public float attackDist = 3.0f;     // 공격 범위
+
+    public ZombieDamage zombieDmg;
     #endregion
 
     /***********************************************************************
@@ -36,15 +38,18 @@ public class ZombieCtrl : MonoBehaviour
 
         playerTr = GameObject.FindWithTag("Player").transform;
         ZombieTr = GetComponent<Transform>();
+        zombieDmg = GetComponent<ZombieDamage>();
     }
 
     void Update()
     {
+        if (!zombieDmg.isDie) return;
+
         // 플레이어와 자신의 거리 값 계산 메서드
         float dist = Vector3.Distance(playerTr.position, ZombieTr.position);
 
         // 1. 공격 범위 안에 들어 왔다면
-        if(dist<=attackDist)
+        if (dist <= attackDist)
         {
             // 선행 작업
             animator.SetBool("IsTrace", false);     // 이동 애니메이션 중지
@@ -54,7 +59,7 @@ public class ZombieCtrl : MonoBehaviour
             animator.SetBool("IsAttack", true);     // 공격 애니메이션 재생
         }
         // 2, 추적 범위 안에 들어 왔다면
-        else if(dist <= TraceDist)
+        else if (dist <= TraceDist)
         {
             // 선행 작업
             animator.SetBool("IsAttack", false);    // 공격 애니메이션 중지
