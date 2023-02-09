@@ -124,8 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _light: {fileID: 3024133574237631161}
   _audioSource: {fileID: 3024133574237631162}
-  OnClip: {fileID: 8300000, guid: e4733623de62c44819074fe1e9b6aeb9, type: 3}
-  OffClip: {fileID: 8300000, guid: 0cf0edd99108843a5adbcbb9ace3f2f5, type: 3}
+  OnClip: {fileID: 8300000, guid: e47032c6caf040e4183944ac3f21d4b5, type: 3}
+  OffClip: {fileID: 8300000, guid: 0fce1ea35be3c1c47aa4448fede1526e, type: 3}
 --- !u!82 &3024133574237631162
 AudioSource:
   m_ObjectHideFlags: 0

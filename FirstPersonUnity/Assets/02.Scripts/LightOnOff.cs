@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class LightOnOff : MonoBehaviour
 {
-    public Light _light;
-    public AudioSource _audioSource;
+    #region this.Components
+    public Light _light;                // this.Light 컴포넌트
+    public AudioSource _audioSource;    // this.Audiosource 컴포넌트
+    #endregion
 
-    public AudioClip OnClip;
-    public AudioClip OffClip;
+    #region Public Property
+    public AudioClip OnClip;            // Light On 시 재생될 Audio Clip
+    public AudioClip OffClip;           // Light Off 시 재생될 Audio Clip
+    #endregion
 
+    /***********************************************************************
+    *                             Unity Events
+    ***********************************************************************/
+    #region Unity Events
     void Start()
     {
         _light.GetComponent<Light>();
         _audioSource.GetComponent<AudioSource>();
     }
+    #endregion
 
-    void Update()
-    {
-        
-    }
-
+    /***********************************************************************
+    *                            Trigger Events
+    ***********************************************************************/
+    #region Trigger Events
     // other : 충돌체 매게변수
     private void OnTriggerEnter(Collider other)
     {
@@ -41,4 +49,5 @@ public class LightOnOff : MonoBehaviour
             _audioSource.PlayOneShot(OffClip, 1.0f);
         }
     }
+    #endregion
 }

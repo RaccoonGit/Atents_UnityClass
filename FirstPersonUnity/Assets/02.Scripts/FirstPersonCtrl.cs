@@ -4,45 +4,47 @@ using UnityEngine;
 
 public class FirstPersonCtrl : MonoBehaviour
 {
+    #region this.Components
+    public Rigidbody rbody;                    // this.Rigidbody 컴포넌트
+    #endregion
+
     // Private : 접근 제어 지시자, 외부 접근 불가
-    // Horizontal
-    private float h;
-    // Vertical
-    private float v;
-    // Rotate
-    private float r;
+    #region Private Property
+    private float h;                           // Horizontal
+    private float v;                           // Vertical
+    private float r;                           // Rotate
 
-    // 움직이는 방향 벡터
-    private Vector3 moveDir = Vector3.zero;
+    private Vector3 moveDir = Vector3.zero;    // 움직이는 방향 벡터
 
-    // 이동 속도
-    private float moveSpeed = 5.0f;
-    // 마우스 감지 X 센스티브
-    public float xSensitivity = 100.0f;
-    // 마우스 감지 Y 센스티브
-    public float ySensitivity = 100.0f;
+    private float moveSpeed = 5.0f;            // 이동 속도
+    public float xSensitivity = 100.0f;        // 마우스 감지 X 센스티브
+    public float ySensitivity = 100.0f;        // 마우스 감지 Y 센스티브
 
-    public float yMinLimit = -45.0f;
-    public float yMaxLimit = 60.0f;
-    public float xMinLimit = -360.0f;
-    public float xMaxLimit = 360.0f;
+    public float yMinLimit = -45.0f;           // 마우스 Y 축 최소값
+    public float yMaxLimit = 60.0f;            // 마우스 Y 축 최댓값
+    public float xMinLimit = -360.0f;          // 마우스 X 축 최소값
+    public float xMaxLimit = 360.0f;           // 마우스 X 축 최댓값
 
     private float yRot = 0.0f;
     private float xRot = 0.0f;
 
-    public Transform myCamera;
-
-    // 점프 높이
-    private float jumpPower = 5.0f;
+    private float jumpPower = 5.0f;            // 점프 높이
 
     // 점프 가능 체크 Bool 타입 변수
     private bool isJump = false;
+    #endregion
 
-    public Rigidbody rbody;
+    #region Public Property
+    public Transform myCamera;
+    #endregion
 
+    /***********************************************************************
+    *                             Unity Events
+    ***********************************************************************/
+    #region Unity Events
     void Start()
     {
-        
+        rbody = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -56,12 +58,29 @@ public class FirstPersonCtrl : MonoBehaviour
         MouseRotation();
     }
 
+    // 물리 엔진 관련 Update
     private void FixedUpdate()
     {
         FastRun();
         KeyboardMove();
     }
+    #endregion
 
+    /***********************************************************************
+    *                           Collision Methods
+    ***********************************************************************/
+    #region Collision Methods
+    // 콜백 함수
+    private void OnCollisionEnter(Collision collision)
+    {
+        isJump = false;
+    }
+    #endregion
+
+    /***********************************************************************
+    *                            Private Methods
+    ***********************************************************************/
+    #region Private Methods
     private void FastRun()
     {
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
@@ -73,12 +92,6 @@ public class FirstPersonCtrl : MonoBehaviour
         {
             moveSpeed = 5.0f;
         }
-    }
-
-    // 콜백 함수
-    private void OnCollisionEnter(Collision collision)
-    {
-        isJump = false;
     }
 
     private void MouseRotation()
@@ -98,8 +111,7 @@ public class FirstPersonCtrl : MonoBehaviour
 
 
     }
-
-        private void KeyboardMove()
+    private void KeyboardMove()
     {
         // A : -1, D : +1
         h = Input.GetAxis("Horizontal");
@@ -123,4 +135,5 @@ public class FirstPersonCtrl : MonoBehaviour
 
         rbody.velocity = Vector3.up * jumpPower;
     }
+    #endregion
 }
