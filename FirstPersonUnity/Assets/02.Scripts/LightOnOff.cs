@@ -33,7 +33,7 @@ public class LightOnOff : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 충돌체의 태그가 Player와 같다면
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player" || other.gameObject.tag == "Zombie" || other.gameObject.tag == "Skeleton" || other.gameObject.tag == "Monster")
         {
             // 라이트가 켜진다
             _light.enabled = true;
@@ -43,7 +43,7 @@ public class LightOnOff : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Zombie" || other.gameObject.tag == "Skeleton" || other.gameObject.tag == "Monster")
         {
             _light.enabled = false;
             _audioSource.PlayOneShot(OffClip, 1.0f);

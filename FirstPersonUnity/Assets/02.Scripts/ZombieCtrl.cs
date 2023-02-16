@@ -22,7 +22,7 @@ public class ZombieCtrl : MonoBehaviour
     public Transform ZombieTr;          // 내 위치
 
     public float TraceDist = 20.0f;     // 추적 범위
-    public float attackDist = 3.0f;     // 공격 범위
+    public float attackDist = 2.0f;     // 공격 범위
 
     public ZombieDamage zombieDmg;
     #endregion
@@ -43,7 +43,7 @@ public class ZombieCtrl : MonoBehaviour
 
     void Update()
     {
-        if (!zombieDmg.isDie) return;
+        if (zombieDmg.isDie == true) return;
 
         // 플레이어와 자신의 거리 값 계산 메서드
         float dist = Vector3.Distance(playerTr.position, ZombieTr.position);
