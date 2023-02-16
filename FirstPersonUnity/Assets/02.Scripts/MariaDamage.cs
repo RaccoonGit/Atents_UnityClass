@@ -30,6 +30,7 @@ public class MariaDamage : MonoBehaviour
     public Text hpText;
 
     public BoxCollider WeaponCol;
+    public BowCtrl bowCtrl;
     #endregion
 
     /***********************************************************************
@@ -96,14 +97,14 @@ public class MariaDamage : MonoBehaviour
         Destroy(gameObject, 5.0f);
     }
 
-    private void EnableCollider()
+    private void Shot()
     {
-        WeaponCol.enabled = true;
+        bowCtrl.Fire();
     }
 
-    private void DisableCollider()
+    private void Reload()
     {
-        WeaponCol.enabled = false;
+        bowCtrl.Reload();
     }
     #endregion
 }
