@@ -47,7 +47,7 @@ public class FireCtrl : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && !handAnim.isRunning && !handAnim.isReloading)
         {
-            Fire();
+            StartCoroutine(FastBullet(5));
         }
     }
     #endregion
@@ -56,7 +56,7 @@ public class FireCtrl : MonoBehaviour
     *                            Private Methods
     ***********************************************************************/
     #region Private Methods
-    void Fire()
+    void Fire(float x = 0.0f, float y = 0.0f)
     {
         combatSG.Play("fire");
         muzzleFlash.Play();
@@ -64,7 +64,7 @@ public class FireCtrl : MonoBehaviour
         source.PlayOneShot(fireSound, 1.0f);
         bulletCount++;
         // 오브젝트 생성 함수 프리팹 생성 함수
-        Instantiate(bullet, firePos.position, firePos.rotation);
+        Instantiate(bullet, firePos.position, firePos.rotation * Quaternion.Euler(new Vector3(x, y, 0.0f)));
     }
     #endregion
 
@@ -72,13 +72,16 @@ public class FireCtrl : MonoBehaviour
     *                              Coroutines
     ***********************************************************************/
     #region Coroutines
-    IEnumerator FastBullet()
+    IEnumerator FastBullet(int shellCount)
     {
         Fire();
-        yield return new WaitForSeconds(0.15f);
-        Fire();
-        yield return new WaitForSeconds(0.15f);
-        Fire();
+        for (int i = 0; i < shellCount-1; i++)
+        {
+            float x = Random.Range(-0.5f, 0.5f);
+            float y = Random.Range(-0.5f, 0.5f);
+            Fire(x, y);
+        }
+        yield return null;
     }
     #endregion
 }

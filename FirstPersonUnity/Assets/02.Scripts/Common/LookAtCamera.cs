@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
+    #region this.Components
     private RectTransform canvasTr;
     private Transform mainCameraTr;
+    #endregion
 
+    /***********************************************************************
+    *                             Unity Events
+    ***********************************************************************/
+    #region Unity Events
     void Start()
     {
         canvasTr = GetComponent<RectTransform>();
@@ -18,4 +24,5 @@ public class LookAtCamera : MonoBehaviour
         Vector3 dir = canvasTr.position - mainCameraTr.position;
         canvasTr.rotation = Quaternion.LookRotation(new Vector3(dir.x, 0.0f, dir.z));
     }
+    #endregion
 }
