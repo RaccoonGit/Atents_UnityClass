@@ -806,7 +806,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Survival FPS
+  m_Text: 'Kill Count : 0'
 --- !u!222 &667626919
 CanvasRenderer:
   m_ObjectHideFlags: 0
