@@ -59,7 +59,7 @@ public class MonsterCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (monsterDmg.isDie == true) return;
+        if (monsterDmg.isDie == true || playerTr.GetComponent<PlayerDamage>().isDie) return;
 
         // 플레이어와 자신의 거리 값 계산 메서드
         float dist = Vector3.Distance(playerTr.position, MonsterTr.position);

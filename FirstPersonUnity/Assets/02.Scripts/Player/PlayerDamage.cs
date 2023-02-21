@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+// FirstPersonController에 접근하기 위한 경로명
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class PlayerDamage : MonoBehaviour
 {
@@ -25,6 +27,7 @@ public class PlayerDamage : MonoBehaviour
     public Image hpBar;
     public Text hpText;
     public Image bloodScreen;
+    public GameObject ImgInfo;
     #endregion
 
     /***********************************************************************
@@ -49,7 +52,7 @@ public class PlayerDamage : MonoBehaviour
     #region Collision Events
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == punchTag)
+        if (other.gameObject.tag == punchTag && !isDie)
         {
             EnemyDamage(15.0f);
             StartCoroutine(ShowBloodScreen());
@@ -74,15 +77,23 @@ public class PlayerDamage : MonoBehaviour
             hpBar.color = Color.yellow;
         hpText.text = hp + " / " + hpInit;
 
-        if (hp <= 0) Die();                     // HP가 0인 경우 사망 처리
+        if (hp <= 0)
+        {
+            isDie = true;
+            rbody.isKinematic = true;
+
+            ImgInfo.SetActive(true);
+            StartCoroutine(SlowShow(ImgInfo));
+            Invoke("Die", 3.0f);
+            GetComponent<FirstPersonController>().enabled = false;
+            GetComponent<FireCtrl>().enabled = false;
+        }
     }
 
+    // HP가 0인 경우 사망 처리
     private void Die()
     {
-        isDie = true;
-        rbody.isKinematic = true;
         SceneManager.LoadScene("EndScene");
-
     }
     #endregion
 
@@ -94,4 +105,19 @@ public class PlayerDamage : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(0.05f, 0.12f));
         bloodScreen.enabled = false;
     }
+
+    IEnumerator SlowShow(GameObject imgInfo)
+    {
+        Image img = imgInfo.GetComponent<Image>();
+        Text txt = imgInfo.GetComponentInChildren<Text>();
+        float alpha = 0.0f;
+        while(alpha < 1.0f)
+        {
+            alpha += Time.deltaTime;
+            img.color = new Color(1.0f, 0.0f, 0.0f, alpha);
+            txt.color = new Color(0.0f, 0.0f, 0.0f, alpha);
+            yield return null;
+        }
+    }
+
 }

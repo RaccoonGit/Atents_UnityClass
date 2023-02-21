@@ -42,7 +42,7 @@ public class SkeletonCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (skeleDmg.isDie == true) return;
+        if (skeleDmg.isDie == true || playerTr.GetComponent<PlayerDamage>().isDie) return;
         // 공격 추적에 따른 애니메이션 동작 구현
         // 플레이어와 자신의 거리 값 계산 메서드
         float dist = Vector3.Distance(playerTr.position, skeletonTr.position);
