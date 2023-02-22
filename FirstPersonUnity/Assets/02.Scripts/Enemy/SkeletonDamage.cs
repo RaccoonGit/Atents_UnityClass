@@ -106,4 +106,14 @@ public class SkeletonDamage : MonoBehaviour
         WeaponCol.enabled = false;
     }
     #endregion
+
+    /***********************************************************************
+    *                            Public Methods
+    ***********************************************************************/
+    #region Public Methods
+    public void OnPlayerDie()
+    {
+        animator.SetTrigger("IsPlayerDie");
+    }
+    #endregion
 }

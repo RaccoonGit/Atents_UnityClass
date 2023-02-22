@@ -107,4 +107,14 @@ public class MariaDamage : MonoBehaviour
         bowCtrl.Reload();
     }
     #endregion
+
+    /***********************************************************************
+    *                            Public Methods
+    ***********************************************************************/
+    #region Public Methods
+    public void OnPlayerDie()
+    {
+        animator.SetTrigger("IsPlayerDie");
+    }
+    #endregion
 }

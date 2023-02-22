@@ -79,7 +79,6 @@ public class PlayerDamage : MonoBehaviour
 
         if (hp <= 0)
         {
-            isDie = true;
             rbody.isKinematic = true;
 
             ImgInfo.SetActive(true);
@@ -87,6 +86,20 @@ public class PlayerDamage : MonoBehaviour
             Invoke("Die", 3.0f);
             GetComponent<FirstPersonController>().enabled = false;
             GetComponent<FireCtrl>().enabled = false;
+            isDie = true;
+            CallbackPlayerDie(GameObject.FindGameObjectsWithTag("Zombie"));
+            CallbackPlayerDie(GameObject.FindGameObjectsWithTag("Skeleton"));
+            CallbackPlayerDie(GameObject.FindGameObjectsWithTag("Monster"));
+            CallbackPlayerDie(GameObject.FindGameObjectsWithTag("Maria"));
+        }
+    }
+
+    private static void CallbackPlayerDie(GameObject[] enemy)
+    {
+        for (int i = 0; i < enemy.Length; i++)
+        {
+            // 다른 오브젝트에 있는 스크립트이 함수를 호출한다.
+            enemy[i].SendMessage("OnPlayerDie", SendMessageOptions.DontRequireReceiver);
         }
     }
 

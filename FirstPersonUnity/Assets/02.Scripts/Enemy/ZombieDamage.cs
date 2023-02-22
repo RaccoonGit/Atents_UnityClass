@@ -102,4 +102,14 @@ public class ZombieDamage : MonoBehaviour
         Destroy(gameObject, 5.0f);
     }
     #endregion
+
+    /***********************************************************************
+    *                            Public Methods
+    ***********************************************************************/
+    #region Public Methods
+    public void OnPlayerDie()
+    {
+        animator.SetTrigger("IsPlayerDie");
+    }
+    #endregion
 }

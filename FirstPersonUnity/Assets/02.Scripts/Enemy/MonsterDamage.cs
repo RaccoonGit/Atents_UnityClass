@@ -124,4 +124,14 @@ public class MonsterDamage : MonoBehaviour
     }
     #endregion
 
+    /***********************************************************************
+    *                            Public Methods
+    ***********************************************************************/
+    #region Public Methods
+    public void OnPlayerDie()
+    {
+        animator.SetTrigger("IsPlayerDie");
+    }
+    #endregion
+
 }

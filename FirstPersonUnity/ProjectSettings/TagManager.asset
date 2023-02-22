@@ -10,6 +10,7 @@ TagManager:
   - Skeleton
   - Monster
   - Punch
+  - Maria
   layers:
   - Default
   - TransparentFX
